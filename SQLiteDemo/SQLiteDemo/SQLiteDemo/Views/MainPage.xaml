@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviorsPack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+             x:Class="SQLiteDemo.Views.MainPage"
+             Title="{Binding Title}">
+
+    <ContentPage.Behaviors>
+        <behaviorsPack:EventToCommandBehavior EventName="Appearing" Command="{Binding PageAppearingCommand}" />
+        <!--<behaviorsPack:EventToCommandBehavior EventName="Disappearing" Command="{Binding PageDisappearingCommand}" />-->
+    </ContentPage.Behaviors>
+
+    <Grid ColumnDefinitions="1*, 4*">
+        <Grid Grid.Column="0" RowDefinitions="Auto, Auto, Auto, Auto, Auto">
+            <Label Grid.Row="0" Text="入力" />
+            <Entry Grid.Row="1" Placeholder="名前" Text="{Binding EntryName.Value}" />
+            <Entry Grid.Row="2" Placeholder="住所" Text="{Binding EntryAddress.Value}" />
+            <Button Grid.Row="3" Text="追加/上書き" Command="{Binding SaveCommand}" />
+            <Button Grid.Row="4" Text="選択行を削除" Command="{Binding DeleteCommand}" />
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <CollectionView ItemsSource="{Binding Persons.Value}" SelectedItem="{Binding SelectedPerson.Value}" SelectionMode="Single">
+                <CollectionView.Header>
+                    <Grid ColumnDefinitions="1*, 1*, 1*, 2*">
+                        <Label Grid.Column="0" Text="ID" />
+                        <Label Grid.Column="1" Text="名前" />
+                        <Label Grid.Column="2" Text="住所" />
+                        <Label Grid.Column="3" Text="日付" />
+                    </Grid>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="1*, 1*, 1*, 2*">
+                            <Label Grid.Column="0" Text="{Binding Id}" />
+                            <Label Grid.Column="1" Text="{Binding Name}" />
+                            <Label Grid.Column="2" Text="{Binding Address}" />
+                            <Label Grid.Column="3" Text="{Binding UpdateDate}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </Grid>
+
+</ContentPage>
